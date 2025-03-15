@@ -19,7 +19,13 @@ pip3 install tensorflow
 
 
 ## 2. Setting Up - Raspberry Pi 4 + Camera V2.1
+No virtual environemnt
 - Install libcap-dev
+- sudo apt install -y libcamera-apps libcamera-dev
+- sudo apt install python3-opencv
+- pip3 install picamera2
+- 
+
 - Install pip install picamera2 -> https://raspberrytips.com/picamera2-raspberry-pi/
 -> Install opencv -> https://randomnerdtutorials.com/install-opencv-raspberry-pi/
 -> Install mediapipe -> https://randomnerdtutorials.com/install-mediapipe-raspberry-pi/
