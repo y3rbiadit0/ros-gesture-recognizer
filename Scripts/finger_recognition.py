@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import cv2
 import mediapipe as mp
 
@@ -50,7 +51,7 @@ def detect_gesture(landmarks):
         and index_tip.y > index_mcp.y  # Other fingers curled
         and wrist.z < 0 # Palm facing the camera
     ):
-        return "GO LEFT"
+        return "TURN LEFT"
 
     # Check if thumb is extended to the right (GO RIGHT)
     if (
@@ -58,7 +59,7 @@ def detect_gesture(landmarks):
         and index_tip.y > index_mcp.y  # Other fingers curled
         and wrist.z > 0 # Palm facing away from camera
     ):
-        return "GO RIGHT"
+        return "TURN RIGHT"
 
     # Check if index finger is pointing up (GO FORWARD)
     if (
