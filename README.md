@@ -19,17 +19,20 @@ pip3 install tensorflow
 
 
 ## 2. Setting Up - Raspberry Pi 4 + Camera V2.1
-No virtual environemnt
-- Install libcap-dev
-- sudo apt install -y libcamera-apps libcamera-dev
-- sudo apt install python3-opencv
-- pip3 install picamera2
-- 
+```bash
+sudo apt install -y python3-pip python3-virtualenv
+sudo apt install libcap-dev
+sudo apt install -y libcamera-apps libcamera-dev
+sudo apt install python3-opencv
+pip3 install picamera2 # picamera2
+pip3 install mediapipe --break-system-packages # mediapipe
+```
 
-- Install pip install picamera2 -> https://raspberrytips.com/picamera2-raspberry-pi/
+-> Install pip install picamera2 -> https://raspberrytips.com/picamera2-raspberry-pi/
 -> Install opencv -> https://randomnerdtutorials.com/install-opencv-raspberry-pi/
 -> Install mediapipe -> https://randomnerdtutorials.com/install-mediapipe-raspberry-pi/
 
+### Test Code for setup
 ```python
 # Minimum code to obtain the image from picamera and port it to open cv to be processed.
 import cv2
