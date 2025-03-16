@@ -32,6 +32,11 @@ pip3 install mediapipe --break-system-packages # mediapipe
 -> Install opencv -> https://randomnerdtutorials.com/install-opencv-raspberry-pi/
 -> Install mediapipe -> https://randomnerdtutorials.com/install-mediapipe-raspberry-pi/
 
+
+
+
+
+
 ### Test Code for setup
 ```python
 # Minimum code to obtain the image from picamera and port it to open cv to be processed.
@@ -56,4 +61,20 @@ while True:
 ```
 
 
+
+### Raspberry Pi OS 32 Bits - Debian Buster
+
+-> https://github.com/Qengineering/Install-OpenCV-Raspberry-Pi-32-bits/
+-> https://medium.com/@jackjin_42/raspberry-pi-4-setup-with-opencv-and-rpi-camera-1e21d789b59b
+
+### CMake config fixed
+```bash
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -D ENABLE_NEON=ON -D WITH_OPENMP=ON -D WITH_OPENCL=OFF -D BUILD_TIFF=ON -D WITH_FFMPEG=ON -D WITH_TBB=OFF -D BUILD_TBB=OFF -D WITH_GSTREAMER=ON -D BUILD_TESTS=OFF -D WITH_EIGEN=OFF -D WITH_V4L=ON -D WITH_LIBV4L=ON -D WITH_VTK=OFF -D WITH_QT=ON -D WITH_PROTOBUF=OFF -D OPENCV_ENABLE_NONFREE=ON -D INSTALL_C_EXAMPLES=OFF -D INSTALL_PYTHON_EXAMPLES=OFF -D OPENCV_FORCE_LIBATOMIC_COMPILER_CHECK=1 -D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages -D OPENCV_GENERATE_PKGCONFIG=ON -D BUILD_EXAMPLES=OFF ..
+
+make -j4
+sudo make install
+sudo apt update
+```
+
+pip3 install "picamera[array]"
 
