@@ -7,7 +7,7 @@ from sensor_msgs.msg import CompressedImage
 from cv_bridge import CvBridge
 import mediapipe as mp
 from std_msgs.msg import String
-from gesture_recognizer.msg import ActionCommand
+from gesture_recognizer.msg import ActionCommand, Metric
 
 
 # Initialize MediaPipe Hands
@@ -100,28 +100,42 @@ class GesturePublisher:
                                   self._image_callback, 
                                   queue_size=1)
         
+        self.metric_pub = rospy.Publisher('/metrics', Metric, queue_size=1)
+        
         rospy.loginfo("Waiting for compressed images...")
 
+    
+    
     def _image_callback(self, msg):
+        # Metric Message
+        metric_msg = Metric()
+        metric_msg.processing_delay = rospy.Time.now().to_sec()
+        
         # Decode the compressed JPEG image
         np_arr = np.frombuffer(msg.data, np.uint8)
         cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
         
+        # Get Network Latency
+        metric_msg.network_latency = self._network_latency(msg)
+        
         if cv_image is not None:
-            # Convert BGR to RGB for MediaPipe
-            frame_rgb = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
             
-            # Process the frame with MediaPipe Hands
+            # Process image
+            frame_rgb = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
             result = hands.process(frame_rgb)
             
+            # Display the annotated image
+            cv2.imshow("Received Frame with Hands", cv_image)
             # Draw hand landmarks on the original BGR image
             if result.multi_hand_landmarks:
                 for hand_landmarks in result.multi_hand_landmarks:
-                    mp_drawing.draw_landmarks(frame_rgb, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                    mp_drawing.draw_landmarks(cv_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                     action = self.gesture_recognizer.recognize(hand_landmarks)
                     if action:
                         self.action_publisher.publish(action)
-               
+            
+            self._publish_metrics(metric_msg)
+            
             # Display the annotated image
             cv2.imshow("Received Frame with Hands", cv_image)
             if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -129,7 +143,14 @@ class GesturePublisher:
         else:
             rospy.logwarn("Failed to decode image")
     
+    def _network_latency(self, msg) -> float:
+        """Get Network Latency coming from Raspberry Pi"""
+        receive_time = rospy.Time.now()
+        return (receive_time - msg.header.stamp).to_sec()
     
+    def _publish_metrics(self, metric_msg: Metric):
+        metric_msg.processing_delay = rospy.Time.now().to_sec() - metric_msg.processing_delay
+        self.metric_pub.publish(metric_msg)  
 
     def shutdown(self):
         hands.close()  # Clean up MediaPipe resources

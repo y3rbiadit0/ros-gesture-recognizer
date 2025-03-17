@@ -1,0 +1,2 @@
+float32 processing_delay
+float32 network_latency
