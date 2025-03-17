@@ -3,7 +3,7 @@
     <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
 
     <!-- Start Turtlesim -->
-    <node name="turtlesim_node" pkg="gesture_recognizer" type="turtlesim_node" output="screen"/>
+    <node name="turtle1" pkg="turtlesim" type="turtlesim_node" output="screen"/>
 
     <!-- Run Python nodes -->
     <node name="turtle_controller" pkg="gesture_recognizer" type="turtle_controller.py" output="screen"/>
