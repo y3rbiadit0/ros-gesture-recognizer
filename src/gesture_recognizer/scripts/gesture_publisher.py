@@ -46,35 +46,56 @@ class GestureRecognizer:
         wrist = landmarks.landmark[GestureRecognizer.WRIST]
         index_mcp = landmarks.landmark[GestureRecognizer.INDEX_MCP]
 
+         # Helper function to check if fingers are curled
+        def are_fingers_curled():
+            return (
+                index_tip.y > index_mcp.y and
+                middle_tip.y > index_mcp.y and
+                ring_tip.y > index_mcp.y and
+                pinky_tip.y > index_mcp.y
+            )
+
         # Check if all fingers are bent (FIST = STOP)
+        # Make this more strict by checking thumb position too
         if (
-            index_tip.y > index_mcp.y
-            and middle_tip.y > index_mcp.y
-            and ring_tip.y > index_mcp.y
-            and pinky_tip.y > index_mcp.y
+            are_fingers_curled() and
+            thumb_tip.y > thumb_ip.y  # Thumb is also bent downward
         ):
             return self._createAction("STOP")
 
         # Check if thumb is extended to the left (GO LEFT)
+        # Add more conditions to ensure other fingers are properly curled
         if (
             thumb_tip.x < thumb_ip.x  # Thumb is pointing left
-            and index_tip.y > index_mcp.y  # Other fingers curled
-            and wrist.z < 0 # Palm facing the camera
+            and thumb_tip.y < index_mcp.y  # Thumb tip is above MCP (extended)
+            and middle_tip.y > index_mcp.y  # Middle finger curled
+            and ring_tip.y > index_mcp.y    # Ring finger curled
+            and pinky_tip.y > index_mcp.y   # Pinky finger curled
+            and abs(wrist.z) < 0.1          # Hand relatively flat (less depth variation)
         ):
             return self._createAction("GO LEFT")
 
         # Check if thumb is extended to the right (GO RIGHT)
+        # Similar strict conditions as GO LEFT
         if (
             thumb_tip.x > thumb_ip.x  # Thumb is pointing right
-            and index_tip.y > index_mcp.y  # Other fingers curled
-            and wrist.z > 0 # Palm facing away from camera
+            and thumb_tip.y < index_mcp.y  # Thumb tip is above MCP (extended)
+            and middle_tip.y > index_mcp.y  # Middle finger curled
+            and ring_tip.y > index_mcp.y    # Ring finger curled
+            and pinky_tip.y > index_mcp.y   # Pinky finger curled
+            and abs(wrist.z) < 0.1          # Hand relatively flat (less depth variation)
         ):
             return self._createAction("GO RIGHT")
 
         # Check if index finger is pointing up (GO FORWARD)
+        # Make this more specific to avoid confusion with LEFT/RIGHT
         if (
             index_tip.y < wrist.y  # Index finger above wrist
-            and middle_tip.y > index_mcp.y  # Other fingers curled      
+            and index_tip.y < index_mcp.y  # Index fully extended upward
+            and middle_tip.y > index_mcp.y  # Middle finger curled
+            and ring_tip.y > index_mcp.y    # Ring finger curled
+            and pinky_tip.y > index_mcp.y   # Pinky finger curled
+            and thumb_tip.y > thumb_ip.y    # Thumb bent downward
         ):
             return self._createAction("GO FORWARD")
 
