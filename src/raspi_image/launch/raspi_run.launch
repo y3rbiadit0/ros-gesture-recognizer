@@ -1,0 +1,1 @@
+<node name="pi_camera_publisher" pkg="raspi_image" type="raspi_img_publisher.py" output="screen"/>
