@@ -86,6 +86,7 @@ class GestureRecognizer:
         action.angular_velocity = 1.0 # TODO - Set from params
         action.action_type = action_str
         action.confidence = 0.0 # TODO
+        return action
 
 class GesturePublisher:
     def __init__(self):
@@ -117,7 +118,6 @@ class GesturePublisher:
         
         # Get Network Latency
         metric_msg.network_latency = self._network_latency(msg)
-        
         if cv_image is not None:
             
             # Process image
@@ -131,6 +131,8 @@ class GesturePublisher:
                     action = self.gesture_recognizer.recognize(hand_landmarks)
                     if action:
                         self.action_publisher.publish(action)
+                        cv2.putText(cv_image, action.action_type, (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
             
             self._publish_metrics(metric_msg)
             
