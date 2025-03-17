@@ -1,0 +1,13 @@
+<launch>
+    <!-- Start roscore (if not already running) -->
+    <arg name="use_sim_time" default="true"/>
+
+    <!-- Launch Gazebo with TurtleBot3 -->
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+    <!-- Launch Turtlesim -->
+    <node name="turtlesim_node" pkg="turtlesim" type="turtlesim_node" output="screen"/>
+
+    <!-- Bridge Turtlesim commands to Gazebo -->
+    <node name="cmd_vel_relay" pkg="topic_tools" type="relay" args="/turtle1/cmd_vel /cmd_vel"/>
+</launch>
