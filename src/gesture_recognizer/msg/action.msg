@@ -1,0 +1,4 @@
+float32 x_velocity
+float32 angular_velocity
+string action_type
+float32 confidence
