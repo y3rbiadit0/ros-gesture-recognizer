@@ -120,8 +120,7 @@ class GesturePublisher:
         self.action_publisher = rospy.Publisher('/actions', ActionCommand, queue_size=1)
         self.sub = rospy.Subscriber('/camera/image_compressed', 
                                   CompressedImage, 
-                                  self._image_callback, 
-                                  queue_size=1)
+                                  self._image_callback)
         
         self.metric_pub = rospy.Publisher('/metrics', Metric, queue_size=1)
         
