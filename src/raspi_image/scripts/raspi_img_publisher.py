@@ -20,12 +20,13 @@ class PiCameraPublisher:
         
         # Optimize camera settings
         self.camera = PiCamera()
-        self.camera.resolution = (320, 240)
+        self.resolution = (640, 480)
+        self.camera.resolution = self.resolution
         self.camera.framerate = 30
         self.camera.vflip = False
         
         # Pre-allocate buffer
-        self.raw_capture = PiRGBArray(self.camera, size=(320, 240))
+        self.raw_capture = PiRGBArray(self.camera, size=self.resolution)
         self.running = True
         
         # Warm-up
