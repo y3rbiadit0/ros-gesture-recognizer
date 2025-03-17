@@ -13,7 +13,7 @@ from gesture_recognizer.msg import ActionCommand, Metric
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
-hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+hands = mp_hands.Hands(rospy.get_param('~min_detection_confidence',0.3), rospy.get_param('~min_tracking_confidence',0.3))
 
 class GestureRecognizer:
     """
@@ -103,10 +103,10 @@ class GestureRecognizer:
     
     def _createAction(self, action_str: str):
         action = ActionCommand()
-        action.x_velocity = 1.0 # TODO - Set from params
-        action.angular_velocity = 1.0 # TODO - Set from params
+        action.x_velocity = rospy.get_param('~x_velocity', 1.0)
+        action.angular_velocity = rospy.get_param('~angular_velocity', 1.0)
         action.action_type = action_str
-        action.confidence = 0.0 # TODO
+        action.confidence = rospy.get_param('~confidence', 0.1)
         return action
 
 class GesturePublisher:
