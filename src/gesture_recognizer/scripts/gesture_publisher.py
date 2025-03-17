@@ -143,8 +143,8 @@ class GesturePublisher:
     
     def _network_latency(self, msg) -> float:
         """Get Network Latency coming from Raspberry Pi"""
-        receive_time = rospy.Time.now()
-        return (receive_time - msg.header.stamp).to_sec()
+        receive_time = rospy.Time.now()    
+        return (receive_time.to_sec() - msg.header.stamp.to_sec())
     
     def _publish_metrics(self, metric_msg: Metric):
         metric_msg.processing_delay = rospy.Time.now().to_sec() - metric_msg.processing_delay
