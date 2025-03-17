@@ -13,7 +13,8 @@ from gesture_recognizer.msg import ActionCommand, Metric
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
-hands = mp_hands.Hands(rospy.get_param('~min_detection_confidence',0.3), rospy.get_param('~min_tracking_confidence',0.3))
+
+hands = mp_hands.Hands(min_detection_confidence=rospy.get_param('~min_detection_confidence',0.3), min_tracking_confidence=rospy.get_param('~min_tracking_confidence',0.3))
 
 class GestureRecognizer:
     """
