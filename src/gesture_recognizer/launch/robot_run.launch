@@ -8,11 +8,8 @@
     <!-- Run Python nodes -->
     <node name="turtle_controller" pkg="gesture_recognizer" type="turtle_controller.py" output="screen"/>
 
-    <node name="image_subscriber" pkg="gesture_recognizer" type="gesture_publisher.py" output="screen"/>
+    <node name="image_subscriber" pkg="gesture_recognizer" type="gesture_publisher.py" output="screen">
         <param name="min_detection_confidence" value="0.5"/>
         <param name="min_tracking_confidence" value="0.5"/>
-    
-    <node name="pi_camera_publisher" pkg="raspi_image" type="raspi_img_publisher.py" output="screen"/>
-
-
+    </node>
 </launch>
