@@ -123,9 +123,7 @@ class GesturePublisher:
             # Process image
             frame_rgb = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
             result = hands.process(frame_rgb)
-            
-            # Display the annotated image
-            cv2.imshow("Received Frame with Hands", cv_image)
+
             # Draw hand landmarks on the original BGR image
             if result.multi_hand_landmarks:
                 for hand_landmarks in result.multi_hand_landmarks:
