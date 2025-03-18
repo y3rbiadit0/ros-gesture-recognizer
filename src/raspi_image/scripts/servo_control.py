@@ -19,15 +19,15 @@ class CameraServoNode:
         self.sub = rospy.Subscriber('/camera_move', Int8, self.callback)
         
         # Set initial position
-        self.set_servo_position(self.servo_center)
+        self.set_servo_position_horizontal(self.servo_center)
         rospy.on_shutdown(self.shutdown)
         
     def set_servo_position_horizontal(self, pulse):
-        horizontal_channel = 0
+        horizontal_channel = 1
         self.pwm.set_pwm(horizontal_channel, 0, pulse)
 
     def set_servo_position_vertical(self, pulse):
-        vertical_channel = 1
+        vertical_channel = 0
         self.pwm.set_pwm(vertical_channel, 0, pulse)
         
     def callback(self, msg):
@@ -42,10 +42,10 @@ class CameraServoNode:
             self.set_servo_position_horizontal(self.servo_center)
             rospy.loginfo("Moving camera to center")
         elif command == 4:
-            self.set_servo_position_vertical(self.servo_center)
+            self.set_servo_position_vertical(self.servo_max)
             rospy.loginfo("Moving camera to up")
         elif command == 5:
-            self.set_servo_position_vertical(self.servo_center)
+            self.set_servo_position_vertical(self.servo_min)
             rospy.loginfo("Moving camera to down")
         else:
             rospy.logwarn(f"Invalid command received: {command}")
