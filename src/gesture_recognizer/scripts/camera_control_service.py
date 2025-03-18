@@ -23,10 +23,10 @@ class CameraControlService:
     def handle_move_camera(self, req):
         command = req.command
         print(command)
-        if command in [1, 2, 3]:  # Valid commands: 1=left, 2=right, 3=center
+        if command in [1, 2, 3, 4, 5]:  # Valid commands: 1=left, 2=right, 3=center, 4=up, 5=down
             self.pub.publish(command)
             return MoveCameraResponse(True, f"Sent command {command} to camera")
-        return MoveCameraResponse(False, "Invalid command (use 1, 2, or 3)")
+        return MoveCameraResponse(False, "Invalid command (use 1, 2, 3, 4 or 5)")
         
     def getch(self):
         fd = sys.stdin.fileno()
@@ -40,7 +40,7 @@ class CameraControlService:
         
     def keyboard_control(self):
         print("Camera control - Use keys:")
-        print("'a': Left, 'd': Right, 's': Center, 'q': Quit")
+        print("'a': Left, 'd': Right, 's': Center, 'w' : Up, 'e': Down, 'q': Quit")
         print("Service available at '/move_camera'")
         
         while self.running and not rospy.is_shutdown():
@@ -55,6 +55,12 @@ class CameraControlService:
             elif char == 's':  # Center
                 self.pub.publish(3)
                 print("Sent: Move to center")
+            elif char == 'w':  # Center
+                self.pub.publish(4)
+                print("Sent: Move to up")
+            elif char == 'e':  # Center
+                self.pub.publish(5)
+                print("Sent: Move to down")
             elif char == 'q':  # Quit
                 self.running = False
                 print("Shutting down")
