@@ -51,7 +51,7 @@ class CameraServoNode:
             rospy.logwarn(f"Invalid command received: {command}")
             
     def shutdown(self):
-        self.set_servo_position(self.servo_center)  # Center on shutdown
+        self.set_servo_position_vertical(self.servo_center)  # Center on shutdown
         
     def run(self):
         rospy.spin()
