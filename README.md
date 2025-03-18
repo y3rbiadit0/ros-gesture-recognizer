@@ -103,4 +103,12 @@ python3 raspi_cam/scripts/publisher.py
 
 
 
+## PanTilt Driver
 
+Install the driver:
+```bash
+git clone https://github.com/adafruit/Adafruit_Python_PCA9685.git
+python3 setup.py install
+
+python3 examples/simpletest.py
+```
