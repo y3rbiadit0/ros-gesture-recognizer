@@ -19,7 +19,7 @@ class CameraServoNode:
         self.sub = rospy.Subscriber('/camera_move', Int8, self.callback)
         
         # Set initial position
-        self.set_servo_position_horizontal(self.servo_center)
+        self.set_servo_position_vertical(self.servo_center)
         rospy.on_shutdown(self.shutdown)
         
     def set_servo_position_horizontal(self, pulse):
