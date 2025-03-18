@@ -40,7 +40,7 @@ class MetricPlotter:
         network_latency = msg.network_latency
         
         # Append data to storage
-        current_time = rospy.get_time() - self.start_time
+        current_time = rospy.get_time() - self.start_time + 0.01
         self.timestamps.append(current_time)
         self.processing_delays.append(processing_delay)
         self.network_latencies.append(network_latency)
@@ -51,8 +51,12 @@ class MetricPlotter:
         
         # Adjust plot limits
         if self.timestamps:
-            self.ax1.set_xlim(min(self.timestamps), max(self.timestamps))
-            self.ax2.set_xlim(min(self.timestamps), max(self.timestamps))
+            t_min, t_max = min(self.timestamps), max(self.timestamps)
+            if t_min == t_max:  # Single timestamp case
+                t_max = t_min + 0.1  # Add a small offset
+            self.ax1.set_xlim(t_min, t_max)
+            self.ax2.set_xlim(t_min, t_max)
+            
             if self.processing_delays:
                 self.ax1.set_ylim(min(self.processing_delays) * 0.9, max(self.processing_delays) * 1.1)
             if self.network_latencies:
