@@ -105,6 +105,8 @@ python3 raspi_cam/scripts/publisher.py
 
 ## PanTilt Driver
 
+[Guide Link](https://blog.garybricks.com/control-16-servos-with-raspberry-pi-pca9685-driver)
+
 Install the driver:
 ```bash
 git clone https://github.com/adafruit/Adafruit_Python_PCA9685.git
