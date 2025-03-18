@@ -16,7 +16,7 @@ class CameraServoNode:
         
         # ROS setup
         rospy.init_node('camera_servo_node', anonymous=True)
-        self.sub = rospy.Subscriber('/camera_move', Int8, self.callback)
+        self.sub = rospy.Subscriber('/camera_action', Int8, self.callback)
         
         # Set initial position
         self.set_servo_position_vertical(self.servo_center)

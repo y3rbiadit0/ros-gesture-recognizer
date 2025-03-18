@@ -12,7 +12,7 @@ class CameraControlService:
         rospy.init_node('camera_control_service', anonymous=True)
         
         # Publisher to send commands to the Raspberry Pi
-        self.pub = rospy.Publisher('/camera_move', Int8, queue_size=1)
+        self.pub = rospy.Publisher('/camera_action', Int8, queue_size=1)
         
         # Service to accept move commands
         self.srv = rospy.Service('/move_camera', MoveCamera, self.handle_move_camera)
