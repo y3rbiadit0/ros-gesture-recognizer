@@ -19,5 +19,5 @@
         <param name="confidence" type = "double" value="0.0"/>
     </node>
     <node name ="metric_plotter" pkg="gesture_recognizer" type="metric_subscriber.py" output="screen"/> 
-    <node name="camera_control_service" pkg="gesture_recognizer" type="camera_control_service.py" output="screen"/>
+    <node name="camera_move_service" pkg="gesture_recognizer" type="camera_move_service.py" output="screen"/>
 </launch>
