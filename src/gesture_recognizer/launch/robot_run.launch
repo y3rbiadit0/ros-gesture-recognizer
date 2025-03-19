@@ -14,8 +14,8 @@
     <node name="image_subscriber" pkg="gesture_recognizer" type="gesture_publisher.py" output="screen">
         <param name="min_detection_confidence" type = "double" value="0.5"/>
         <param name="min_tracking_confidence" type = "double" value="0.5"/>
-        <param name="x_velocity" type = "double" value="2.0"/>
-        <param name="angular_velocity" type = "double" value="2.0"/>
+        <param name="x_velocity" type = "double" value="1.0"/>
+        <param name="angular_velocity" type = "double" value="1.0"/>
         <param name="confidence" type = "double" value="0.0"/>
     </node>
     <node name ="metric_plotter" pkg="gesture_recognizer" type="metric_subscriber.py" output="screen"/> 
