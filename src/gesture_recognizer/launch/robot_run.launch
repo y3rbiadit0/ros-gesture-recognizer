@@ -1,4 +1,7 @@
 <launch>
+    <!-- Load OpenMP needed by tensorflow-->
+    <env name="LD_PRELOAD" value="/usr/lib/aarch64-linux-gnu/libgomp.so.1"/>
+    
     <!-- Start Gazebo with TurtleBot3 -->
     <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
 
