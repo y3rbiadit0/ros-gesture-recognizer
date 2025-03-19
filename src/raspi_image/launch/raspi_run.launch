@@ -1,1 +1,2 @@
 <node name="pi_camera_publisher" pkg="raspi_image" type="raspi_img_publisher.py" output="screen"/>
+<node name="camera_servo_node" pkg="raspi_image" type="servo_control.py" output="screen"/>
