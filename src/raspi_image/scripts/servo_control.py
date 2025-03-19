@@ -40,6 +40,7 @@ class CameraServoNode:
             rospy.loginfo("Moving camera right")
         elif command == 3:  # Center
             self.set_servo_position_horizontal(self.servo_center)
+            self.set_servo_position_vertical(self.servo_center)
             rospy.loginfo("Moving camera to center")
         elif command == 4:
             self.set_servo_position_vertical(self.servo_max)
