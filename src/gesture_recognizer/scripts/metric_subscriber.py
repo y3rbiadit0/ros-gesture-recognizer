@@ -1,79 +1,67 @@
 #!/usr/bin/python3
 import rospy
 from gesture_recognizer.msg import Metric
-import matplotlib.pyplot as plt
 from collections import deque
+import pyqtgraph as pg
+from PyQt5 import QtCore
+import numpy as np
 
 class MetricPlotter:
     def __init__(self):
         # Initialize ROS node
         rospy.init_node('metric_plotter', anonymous=True)
         
-        # Data storage (using deque for a sliding window)
-        self.max_points = 100  # Number of points to display
+        # Data storage
+        self.max_points = 300
+        self.timestamps = deque(maxlen=self.max_points)
         self.processing_delays = deque(maxlen=self.max_points)
         self.network_latencies = deque(maxlen=self.max_points)
-        self.timestamps = deque(maxlen=self.max_points)
         self.start_time = rospy.get_time()
         
-        # Set up matplotlib plot
-        plt.ion()  # Interactive mode for real-time updates
-        self.fig, (self.ax1, self.ax2) = plt.subplots(2, 1, figsize=(10, 6))
-        self.line1, = self.ax1.plot([], [], 'b-', label='Processing Delay')
-        self.line2, = self.ax2.plot([], [], 'r-', label='Network Latency')
+        # Set up PyQtGraph window
+        self.app = pg.mkQApp()  # Create Qt application
+        self.win = pg.GraphicsLayoutWidget(title="Real-Time Metrics")
+        self.win.resize(800, 600)
+        self.win.show()
         
-        # Configure plots
-        self.ax1.set_title('Processing Delay')
-        self.ax1.set_ylabel('Seconds')
-        self.ax1.legend()
-        self.ax2.set_title('Network Latency')
-        self.ax2.set_xlabel('Time (s)')
-        self.ax2.set_ylabel('Seconds')
-        self.ax2.legend()
+        # Create plots
+        self.plot1 = self.win.addPlot(title="Processing Delay", row=0, col=0)
+        self.plot1.setLabel('left', 'Seconds')
+        self.plot1.setLabel('bottom', 'Time (s)')
+        self.plot1.setRange(xRange=[0, 60], yRange=[0, 1])
+        self.curve1 = self.plot1.plot(pen='b')
         
-        # Subscribe to the /metrics topic
+        self.plot2 = self.win.addPlot(title="Network Latency", row=1, col=0)
+        self.plot2.setLabel('left', 'Seconds')
+        self.plot2.setLabel('bottom', 'Time (s)')
+        self.plot2.setRange(xRange=[0, 60], yRange=[0, 1])
+        self.curve2 = self.plot2.plot(pen='r')
+        
+        # Subscribe to metrics
         rospy.Subscriber('/metrics', Metric, self.metrics_callback)
+        
+        # Timer for plot updates
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.update_plot)
+        self.timer.start(100)  # Update every 100ms
     
     def metrics_callback(self, msg):
-        # Extract data from the message
-        processing_delay = msg.processing_delay
-        network_latency = msg.network_latency
-        
-        # Append data to storage
         current_time = rospy.get_time() - self.start_time + 0.01
         self.timestamps.append(current_time)
-        self.processing_delays.append(processing_delay)
-        self.network_latencies.append(network_latency)
-        
-        # Update plot data
-        self.line1.set_data(self.timestamps, self.processing_delays)
-        self.line2.set_data(self.timestamps, self.network_latencies)
-        
-        # Adjust plot limits
-        if self.timestamps:
-            t_min, t_max = min(self.timestamps), max(self.timestamps)
-            if t_min == t_max:  # Single timestamp case
-                t_max = t_min + 0.1  # Add a small offset
-            self.ax1.set_xlim(t_min, t_max)
-            self.ax2.set_xlim(t_min, t_max)
-            
-            if self.processing_delays:
-                self.ax1.set_ylim(min(self.processing_delays) * 0.9, max(self.processing_delays) * 1.1)
-            if self.network_latencies:
-                self.ax2.set_ylim(min(self.network_latencies) * 0.9, max(self.network_latencies) * 1.1)
-        
-        # Redraw the plot
-        self.fig.canvas.draw()
-        self.fig.canvas.flush_events()
+        self.processing_delays.append(msg.processing_delay)
+        self.network_latencies.append(msg.network_latency)
+    
+    def update_plot(self):
+        self.curve1.setData(list(self.timestamps), list(self.processing_delays))
+        self.curve2.setData(list(self.timestamps), list(self.network_latencies))
     
     def run(self):
-        # Keep the node running
-        rospy.spin()
+        if not rospy.is_shutdown():
+            self.app.exec_()  # Start Qt event loop
 
 if __name__ == '__main__':
     try:
         plotter = MetricPlotter()
         plotter.run()
     except rospy.ROSInterruptException:
-        plt.close()
-
+        pass
