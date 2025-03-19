@@ -1,5 +1,5 @@
 <launch>
-    <env name="ROS_MASTER_URI" value="http://192.168.1.101:11311"/>
+    <env name="ROS_MASTER_URI" value="http://192.168.1.202:11311"/>
     <node name="pi_camera_publisher" pkg="raspi_image" type="raspi_img_publisher.py" output="screen"/>
     <node name="camera_servo_node" pkg="raspi_image" type="servo_control.py" output="screen"/>
 </launch>
