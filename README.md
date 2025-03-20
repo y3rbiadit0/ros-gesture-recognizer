@@ -1,18 +1,27 @@
 # ROS Gesture Recognizer
-<table>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/2514fd23-ae21-45ad-9dd6-7258457526db" width="150"></td>
-    <td><img src="https://github.com/user-attachments/assets/aa0cfd1a-4ef1-4718-b75f-624cbcd05766" width="150"></td>
-    <td><img src="https://github.com/user-attachments/assets/7eaf8c0c-f8be-42c1-85bd-49bc09279640" width="150"></td>
-    <td><img src="https://github.com/user-attachments/assets/71bff446-5cf0-4c38-b733-067348f047fe" width="150"></td>
-  </tr>
-  <tr>
-    <td align="center">Raspberry Pi</td>
-    <td align="center">Mediapipe</td>
-    <td align="center">OpenCV</td>
-    <td align="center">ROS Noetic</td>
-  </tr>
-</table>
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="https://github.com/user-attachments/assets/2514fd23-ae21-45ad-9dd6-7258457526db" width="150"></td>
+      <td><img src="https://github.com/user-attachments/assets/aa0cfd1a-4ef1-4718-b75f-624cbcd05766" width="150"></td>
+      <td><img src="https://github.com/user-attachments/assets/7eaf8c0c-f8be-42c1-85bd-49bc09279640" width="150"></td>
+      <td><img src="https://github.com/user-attachments/assets/71bff446-5cf0-4c38-b733-067348f047fe" width="150"></td>
+    </tr>
+    <tr>
+      <td align="center">Raspberry Pi</td>
+      <td align="center">Mediapipe</td>
+      <td align="center">OpenCV</td>
+      <td align="center">ROS Noetic</td>
+    </tr>
+  </table>
+</div>
+
+<div align="center">
+<img width="768" alt="Screenshot 2025-03-20 at 11 05 16 PM" src="https://github.com/user-attachments/assets/6ee10339-9a92-4424-9df4-a4c090f38360" />
+
+</div>
+
+
 
 ## Overview
 The **ROS Gesture Recognizer** is a vision-based gesture recognition system designed to interact with robotic platforms. 
