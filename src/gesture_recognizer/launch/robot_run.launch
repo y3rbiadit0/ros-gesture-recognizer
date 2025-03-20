@@ -20,4 +20,5 @@
     </node>
     <node name ="metric_plotter" pkg="gesture_recognizer" type="metric_subscriber.py" output="screen"/> 
     <node name="camera_move_service" pkg="gesture_recognizer" type="camera_move_service.py" output="screen"/>
+    <node pkg="gesture_recognizer" type="camera_keyboard_client.py" name="keyboard_camera_client" launch-prefix="gnome-terminal --" />
 </launch>

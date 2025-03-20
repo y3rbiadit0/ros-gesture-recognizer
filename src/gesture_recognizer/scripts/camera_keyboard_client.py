@@ -45,11 +45,11 @@ class KeyboardCameraClient:
                 self.move_camera(1)
             elif char == 'd':  # Right
                 self.move_camera(2)
-            elif char == 's':  # Center
+            elif char == 'e':  # Center
                 self.move_camera(3)
             elif char == 'w':  # Up
                 self.move_camera(4)
-            elif char == 'e':  # Down
+            elif char == 's':  # Down
                 self.move_camera(5)
             elif char == 'q':  # Quit
                 self.running = False
