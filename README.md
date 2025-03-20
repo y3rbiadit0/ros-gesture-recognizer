@@ -1,11 +1,25 @@
 # ROS Gesture Recognizer
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/2514fd23-ae21-45ad-9dd6-7258457526db" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/aa0cfd1a-4ef1-4718-b75f-624cbcd05766" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/7eaf8c0c-f8be-42c1-85bd-49bc09279640" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/71bff446-5cf0-4c38-b733-067348f047fe" width="150"></td>
+  </tr>
+  <tr>
+    <td align="center">Raspberry Pi</td>
+    <td align="center">ROS</td>
+    <td align="center">OpenCV</td>
+    <td align="center">Noetic</td>
+  </tr>
+</table>
 
 ## Overview
-The **ROS Gesture Recognizer** is a vision-based gesture recognition system designed to interface with robotic platforms. 
+The **ROS Gesture Recognizer** is a vision-based gesture recognition system designed to interact with robotic platforms. 
 
 It utilizes **[OpenCV](https://opencv.org/)**, **[MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide)**, and **[TensorFlow](https://www.tensorflow.org/?hl=es)** to detect hand gestures and map them to predefined robotic actions such as movement commands.
 
-The system is built on **ROS Noetic** and runs on a **Raspberry Pi 4** equipped with a **Camera V2.1**.
+The system is built on **[ROS Noetic](https://wiki.ros.org/noetic)** and runs on a **Raspberry Pi 4** equipped with a **Camera V2.1**.
 
 This project is a Proof-Of-Concept to learn how to use ROS and take advantage of its features.
 
@@ -30,6 +44,7 @@ This project is a Proof-Of-Concept to learn how to use ROS and take advantage of
 - Uses **MediaPipe Hands** to extract hand landmarks.
 - Maps hand gestures to corresponding movement commands.
 - Publishes commands to **ROS topics** (`/actions`).
+- Publishes performance `Metric` data to **ROS topics** (`/metrics`).
 
 ### 2. Image Processing Pipeline
 - Captures frames using **Picamera[array]**.
@@ -46,6 +61,8 @@ This project is a Proof-Of-Concept to learn how to use ROS and take advantage of
 - Monitors **processing delay** and **network latency**.
 - Uses **PyQtGraph** for real-time visualization.
 - Provides insights into system performance.
+
+![architecture_whiteboard](https://github.com/user-attachments/assets/adfc2a45-0de6-4418-9665-3bfdcf887654)
 
 ## Installation
 ### 1. Clone the Repository
