@@ -8,9 +8,9 @@
   </tr>
   <tr>
     <td align="center">Raspberry Pi</td>
-    <td align="center">ROS</td>
+    <td align="center">Mediapipe</td>
     <td align="center">OpenCV</td>
-    <td align="center">Noetic</td>
+    <td align="center">ROS Noetic</td>
   </tr>
 </table>
 
