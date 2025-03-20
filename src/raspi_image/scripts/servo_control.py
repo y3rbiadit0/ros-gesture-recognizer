@@ -49,23 +49,23 @@ class CameraServoNode:
         if command == 1:  # Left
             new_pos = self.current_horizontal - self.step_size
             self.set_servo_position_horizontal(new_pos)
-            rospy.loginfo("Moving camera left to {new_pos}")
+            rospy.loginfo(f"Moving camera left to {new_pos}")
         elif command == 2:  # Right
             new_pos = self.current_horizontal + self.step_size
             self.set_servo_position_horizontal(new_pos)
-            rospy.loginfo("Moving camera right to {new_pos}")
+            rospy.loginfo(f"Moving camera right to {new_pos}")
         elif command == 3:  # Center
             self.set_servo_position_horizontal(self.servo_center)
             self.set_servo_position_vertical(self.servo_center)
-            rospy.loginfo("Moving camera to center")
+            rospy.loginfo(f"Moving camera to center")
         elif command == 4: #Up
             new_pos = self.current_vertical + self.step_size
             self.set_servo_position_vertical(new_pos)
-            rospy.loginfo("Moving camera up to {new_pos}")
+            rospy.loginfo(f"Moving camera up to {new_pos}")
         elif command == 5:
             new_pos = self.current_vertical - self.step_size
             self.set_servo_position_vertical(new_pos)
-            rospy.loginfo("Moving camera down to {new_pos}")
+            rospy.loginfo(f"Moving camera down to {new_pos}")
         else:
             rospy.logwarn(f"Invalid command received: {command}")
             
