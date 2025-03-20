@@ -37,6 +37,11 @@ This project is a Proof-Of-Concept to learn how to use ROS and take advantage of
 - **OS**: Raspberry Pi OS 32-bit (Debian Buster recommended).
 - **ROS**: Noetic (installed on Raspberry Pi and/or host machine).
 
+## Architecture Overview
+
+![architecture_whiteboard](https://github.com/user-attachments/assets/adfc2a45-0de6-4418-9665-3bfdcf887654)
+
+
 
 ## System Components
 ### 1. Gesture Recognition Module
@@ -62,7 +67,6 @@ This project is a Proof-Of-Concept to learn how to use ROS and take advantage of
 - Uses **PyQtGraph** for real-time visualization.
 - Provides insights into system performance.
 
-![architecture_whiteboard](https://github.com/user-attachments/assets/adfc2a45-0de6-4418-9665-3bfdcf887654)
 
 ## Installation
 ### 1. Clone the Repository
